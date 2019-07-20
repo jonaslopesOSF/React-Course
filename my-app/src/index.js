@@ -3,13 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 function Square(props) {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         value: null,
-    //     }
-    // } 
-    // because Square do not need to track the state of the game's state, the Board is doing this now
     return (
         <button className="square" onClick={props.onClick}>
             {props.value}
