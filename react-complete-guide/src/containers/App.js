@@ -9,7 +9,7 @@ class App extends Component {
     super(props);
     console.log('[App.js] constructor');
   }
-   
+
   state = {
     persons: [
       { id: 'asdf', name: 'Max', age: 28 },
@@ -18,20 +18,31 @@ class App extends Component {
     ],
     otherState: 'some other value',
     showPersons: false,
+    showCockpit: true,
   };
 
   static getDerivedStateFromProps(props, state) {
-    console.log('[App.js] getDerivedStateFromProps', props); 
+    console.log('[App.js] getDerivedStateFromProps', props);
     return state;
   }
 
-  componentWillMount() {
-    console.log('[App.js] componentWillMount');
-  }
+  // componentWillMount() {
+  //   console.log('[App.js] componentWillMount');
+  // }
 
   componentDidMount() {
     console.log('[App.js] componentDidMount');
-  }
+  } //important one
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('[Persons.js] shouldComponentUpdate');
+    return true;
+  } //important one
+
+  componentDidUpdate() {
+    console.log('[App.js] componentDidUpdate');
+  } //important one
+
 
   // switchNameHandler = (newName) => {
   //   // console.log('Was clicked!');
@@ -46,7 +57,7 @@ class App extends Component {
   // };
 
 
-  nameChangedEventHandler = ( event, id ) => {
+  nameChangedEventHandler = (event, id) => {
     const personIndex = this.state.persons.findIndex(p => {
       return p.id === id;
     });
@@ -59,12 +70,12 @@ class App extends Component {
 
     const persons = [...this.state.persons];
     persons[personIndex] = person;
-    
+
     this.setState({
       persons: persons
     });
   }
-  
+
   deletePersonHandler = (personIndex) => {
     // const persons = this.state.persons.slice();
     const persons = [...this.state.persons]; // beautifull way of make a copy of array
@@ -82,20 +93,29 @@ class App extends Component {
     let persons = null;
 
     if (this.state.showPersons) {
-      persons = <Persons 
-                  persons={this.state.persons}
-                  clicked={this.deletePersonHandler}
-                  changed={this.nameChangedEventHandler} />;
+      persons = <Persons
+        persons={this.state.persons}
+        clicked={this.deletePersonHandler}
+        changed={this.nameChangedEventHandler} />;
     }
 
     return (
       <div className={classes.App}>
-          <Cockpit 
+        <button onClick={() => {
+          this.setState({ showCockpit: false })
+        }}
+        >
+          Remove Cockpit
+        </button>
+
+        {this.state.showCockpit ? 
+          <Cockpit
             title={this.props.appTitle}
             showPersons={this.state.showPersons}
             persons={this.state.persons}
-            clicked={this.togglePersonsHandler}/>
-          {persons}
+            clicked={this.togglePersonsHandler}
+          /> : null}
+        {persons}
       </div>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
@@ -106,6 +126,6 @@ export default App;
   {
     this.state.showPersons ?
     </div> : null
-  }  
+  }
       use this is one way to show in conditional html
 */
