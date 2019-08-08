@@ -3,7 +3,7 @@ import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import withClass from '../hoc/withClass';
-import Aux from '../hoc/Aux';
+import Aux from '../hoc/Auxiliarity';
 import AuthContext from '../context/auth-context';
 // import ErrorBoundary from './ErrorBoundary/ErrorBoundary'; just to handle with errors
 

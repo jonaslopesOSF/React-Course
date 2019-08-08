@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 // we aren't using classes so we don't need to import Component of React
 import classes from "./Person.css";
-import Aux from "../../../hoc/Aux";
+import Aux from "../../../hoc/Auxiliarity";
 import withClass from "../../../hoc/withClass";
 import AuthContext from '../../../context/auth-context';
 
