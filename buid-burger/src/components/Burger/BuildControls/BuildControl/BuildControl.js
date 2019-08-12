@@ -1,9 +1,9 @@
 import React from 'react';
 import classes from './BuildControl.css';
 
-const buildControl = ({label, added, removed, disabled}) => ( 
+const buildControl = ({label, added, removed, disabled, totalIngredient}) => ( 
   <div className={classes.BuildControl}>
-    <div className={classes.Label}>{label}</div>
+    <div className={classes.Label}>{totalIngredient} - {label}</div>
     <button 
       className={classes.Less}
       onClick={removed}

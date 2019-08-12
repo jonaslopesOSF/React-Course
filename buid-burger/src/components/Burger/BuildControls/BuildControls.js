@@ -15,7 +15,8 @@ const buildControls = ({ingredientAdded,
                         disabledInfo,
                         price,
                         purchaseable,
-                        ordered}) => {
+                        ordered,
+                        ingredients}) => {
                           
   const showControls = controls.map( ctrl => (
     <BuildControl 
@@ -24,6 +25,7 @@ const buildControls = ({ingredientAdded,
       added={() => ingredientAdded(ctrl.type)}
       removed={() => ingredientRemoved(ctrl.type)} 
       disabled={disabledInfo[ctrl.type]} 
+      totalIngredient={ingredients[ctrl.type]}
     />
   ))
 
