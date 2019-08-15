@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 import "./NewPost.css";
 
@@ -7,7 +8,8 @@ class NewPost extends Component {
   state = {
     title: "",
     content: "",
-    author: "Max"
+    author: "Max",
+    // submited: false,
   };
 
   postDataHandler = () => {
@@ -19,12 +21,25 @@ class NewPost extends Component {
     axios.post( "/posts/", data)
       .then( response => {
         console.log('POST', response);
+        this.props.history.replace('/posts');
+        //using replace you unable access the previous page, 
+        // becauxe you replaced it
+        // you can use post instead, and not replace the stack
+        // this.setState({ submited: true })
       })
   }
 
   render() {
+    // let redirect = null;
+    // if (this.state.submited) {
+      // redirect = <Redirect to="/posts" />
+      {/* if you don't set the 'from' parameter, it takes the
+       actual url path */}
+    // }
+
     return (
       <div className="NewPost">
+        {/* {redirect} */}
         <h1>Add a Post</h1>
         <label>Title</label>
         <input
