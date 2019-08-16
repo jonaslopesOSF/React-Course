@@ -16,20 +16,6 @@ const INGREDIENT_PRICES = {
   bacon: 0.7,
 }
 
-const INITIAL_STATE = {
-  ingredients: {
-      salad: 0,
-      bacon: 0,
-      cheese: 0,
-      meat: 0,
-    },
-    totalPrice: 3,
-    purchaseable: false,
-    purchasing: false,
-    loading: false,
-    error: false,
-}
-
 class BurgerBuilder extends Component {
   state = {
     ingredients: null,
@@ -103,41 +89,12 @@ class BurgerBuilder extends Component {
   }
 
   purchasingContinueHandler = () => {
-    // this.setState({ loading: true });
-
-    // const order = {
-    //   ingredients: this.state.ingredients,
-    //   price: this.state.totalPrice, 
-    //   // in a real project, it need to be calculated on
-    //   // the server for security
-    //   customer: {
-    //     name: "Jonas Lopes",
-    //     address: {
-    //       street: 'Teststreet',
-    //       zipCode: '41542',
-    //       country: 'Brazil'
-    //     },
-    //     email: 'test@test.com'
-    //   },
-    //   deliveryMethod: 'fastest'
-    // }
-
-    // // send to firebase database
-    // axios.post("/orders.json", order)
-    //   .then(response => {
-    //     console.log(response);
-    //     this.setState({ 
-    //       ...INITIAL_STATE
-    //     });
-    //   })
-    //   .catch(error => {
-    //     this.setState({ loading: false, purchasing: false });
-    //   })
 
     const queryParams = [];
     for (let i in this.state.ingredients) {
       queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
     }
+    queryParams.push('price=' + this.state.totalPrice);
     const queryString = queryParams.join('&');
 
     this.props.history.push({
