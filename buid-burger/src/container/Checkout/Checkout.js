@@ -17,13 +17,13 @@ class Checkout extends Component {
     for (let param of query.entries()) {
       // ['salad', '1']
       if (param[0] === 'price') {
-        price = param[1];
+        price = +param[1];
       } else {
         ingredients[param[0]] = +param[1];
         // using the '+' convert the string 'number' in number
       }
     }
-    this.setState({ ingredients, totalPrice: price });
+    this.setState({ ingredients, price });
   }
 
   checkoutCancelledHandler = () => {
@@ -46,7 +46,7 @@ class Checkout extends Component {
           path={this.props.match.path + "/contact-data"}
           render={(props) => <ContactData 
                           ingredients={this.state.ingredients}
-                          price={this.state.totalPrice} 
+                          price={this.state.price} 
                           {...props}  
                           />}
         />
