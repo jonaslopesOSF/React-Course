@@ -28,13 +28,13 @@ class BurgerBuilder extends Component {
 
   componentDidMount () {
     console.log(this.props)
-    axios.get("https://react-my-burger-46b0f.firebaseio.com/ingredients.json")
-      .then(response => {
-        this.setState({ ingredients: response.data })
-      })
-      .catch(error => {
-        this.setState({ error: true });
-      });
+    // axios.get("https://react-my-burger-46b0f.firebaseio.com/ingredients.json")
+    //   .then(response => {
+    //     this.setState({ ingredients: response.data })
+    //   })
+    //   .catch(error => {
+    //     this.setState({ error: true });
+    //   });
   }
 
   updatePurchaseState = (ingredients) => {
@@ -49,12 +49,12 @@ class BurgerBuilder extends Component {
     const ingredientsToUpdate = {
       ...this.state.ingredients
     };
-    const updatedQtd = this.state.ingredients[type] + 1; 
-    
+    const updatedQtd = this.state.ingredients[type] + 1;
+
     ingredientsToUpdate[type] = updatedQtd;
     const priceAddition = INGREDIENT_PRICES[type];
-    const newPrice = this.state.totalPrice + priceAddition; 
-    
+    const newPrice = this.state.totalPrice + priceAddition;
+
     this.setState({ totalPrice: newPrice, ingredients: ingredientsToUpdate, });
     this.updatePurchaseState(ingredientsToUpdate);
   }
@@ -63,17 +63,17 @@ class BurgerBuilder extends Component {
     const ingredientsToUpdate = {
       ...this.state.ingredients
     }
-    const oldQtd = this.state.ingredients[type] 
+    const oldQtd = this.state.ingredients[type]
     if (oldQtd <= 0) {
       return;
-    } 
+    }
     let updatedQtd = this.state.ingredients[type] - 1;
     const priceDeduction = INGREDIENT_PRICES[type];
     let newPrice = this.state.totalPrice - priceDeduction;
 
     ingredientsToUpdate[type] = updatedQtd;
-    
-    this.setState({ 
+
+    this.setState({
       totalPrice: newPrice,
       ingredients: ingredientsToUpdate
     })
@@ -118,9 +118,9 @@ class BurgerBuilder extends Component {
     const disabledInfo = this.disabledInfo();
     // [salad: true, meat: false ...
     const burger = (
-      <Aux>      
+      <Aux>
         <Burger ingredients={this.state.ingredients}/>
-        <BuildControls  
+        <BuildControls
           ingredientAdded={this.addIngredientHandler}
           ingredientRemoved={this.removeIngredientHandler}
           disabledInfo={disabledInfo}
@@ -128,7 +128,7 @@ class BurgerBuilder extends Component {
           purchaseable={this.state.purchaseable}
           ordered={this.purchasingHandler}
           ingredients={this.state.ingredients}
-        />  
+        />
      </Aux>
     )
     return burger;
@@ -136,7 +136,7 @@ class BurgerBuilder extends Component {
 
   setOrderSummaryWithContent = () => {
     let orderSummary = (
-      <OrderSummary 
+      <OrderSummary
         ingredients={this.state.ingredients}
         cancelPurchasing={this.purchasingCancelHandler}
         continuePurchasing={this.purchasingContinueHandler}
@@ -151,17 +151,17 @@ class BurgerBuilder extends Component {
 
   render() {
     let orderSummary = <Spinner />
-    let burger = this.state.error ? <p>Ingredients can't be loaded!</p> 
+    let burger = this.state.error ? <p>Ingredients can't be loaded!</p>
                                   : <Spinner />
     if ( this.state.ingredients ) {
       burger = this.setBurgerWithContent();
       orderSummary = this.setOrderSummaryWithContent();
     }
-    
+
     return (
       <Aux>
-        <Modal 
-          show={this.state.purchasing} 
+        <Modal
+          show={this.state.purchasing}
           modalClosed={this.purchasingCancelHandler}
         >
           {orderSummary}
